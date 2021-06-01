@@ -12,13 +12,13 @@ export default {
   },
   data() {
     return {
-      expand: true,
+      expand: false,
       canExtend: false,
     }
   },
-  mounted() {
-    if (this.$refs.itemRef.offsetHeight > this.$refs.holderRef.offsetHeight) {
-      this.canExtend = true;
+  computed: {
+    canExtend () {
+      return !!(this.jsonValue.length > 300)
     }
   },
   methods: {
@@ -31,7 +31,7 @@ export default {
     const islink = REG_LINK.test(value)
     let domItem
 
-    if (!this.expand) {
+    if (!this.expand && this.canExtend) {
       domItem = {
         class: {
           'jv-ellipsis': true,
